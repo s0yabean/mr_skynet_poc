@@ -188,18 +188,18 @@ Think about the counterpoints to your own arguments and prepare your justificati
 Power - dress."""
 
 x_api_key = st.secrets["x-api-key"]
-image_api = st.secrets["image-api"]
-text_api = st.secrets["text-api"]
+image_api_url = st.secrets["image-api"]
+text_api_url = st.secrets["text-api"]
 
 def text_api(text):
-    url = text_api
+    url = text_api_url
     header = {"x-api-key" : x_api_key}
     return requests.post(url, headers=header, json=json.dumps({"text": text})).json()["prediction"]
 
 def image_api(uploaded_file):
     filename = "temp_images" + "/" + uploaded_file.name
     files = {'file': (filename, open(filename, 'rb'), 'application/octet-stream')}
-    upload_files_url = image_api
+    upload_files_url = image_api_url
     headers = {"x-api-key" : x_api_key}
     return requests.post(upload_files_url, files=files, headers=headers).json()["prediction"]
 
